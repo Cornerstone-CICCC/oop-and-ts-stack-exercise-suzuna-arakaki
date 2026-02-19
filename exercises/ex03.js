@@ -2,10 +2,25 @@
 // Remember the LIFO (Last-In, First-Out) rule
 // Make sure to build a temporary stack
 
-const Stack = require('../lib/Stack')
+const Stack = require("../lib/Stack");
 
 function removeDuplicates(stack) {
   // your code here
+  const tempStack = new Stack();
+  const uniqueNums = new Set();
+
+  while (!stack.isEmpty()) {
+    const removed = stack.pop();
+    if (!uniqueNums.has(removed)) {
+      uniqueNums.add(removed);
+      tempStack.push(removed);
+    }
+  }
+
+  while (!tempStack.isEmpty()) {
+    const removed = tempStack.pop();
+    stack.push(removed);
+  }
 }
 
 // Create stack
@@ -17,5 +32,6 @@ stack.push(5);
 stack.push(1);
 stack.push(3);
 
-removeDuplicates(stack)
-console.log(stack.printStack()) // [2, 5, 1, 3]
+removeDuplicates(stack);
+console.log(stack.printStack()); // [2, 5, 1, 3]
+// It should be >> 3,1,2,5
